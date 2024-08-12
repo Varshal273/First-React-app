@@ -17,7 +17,7 @@ export default function TextForm(props) {
         setText('');
     }
     const handleUndoClick = () => {
-        if(textCache == null | textCache == ''){
+        if(textCache === null | textCache === ''){
             textCache = text;
             setText(textCache);
         }
@@ -47,7 +47,7 @@ export default function TextForm(props) {
         document.getElementById('previewText').innerHTML = text;
     }
     const handleOnTextSearch = () => {
-        if(textSearch != ''){
+        if(textSearch !== ''){
             // console.log(document.getElementById('previewText').innerHTML.replace(textSearch,`<mark>`+textSearch+`</mark>`))
             let preview = document.getElementById('previewText');
             preview.innerHTML = preview.innerHTML.replaceAll(textSearch,`<mark>`+textSearch+`</mark>`);
@@ -60,7 +60,7 @@ export default function TextForm(props) {
         setReText(event.target.value);
     }
     const handleOnReText = () => {
-        if(textSearch != '' & ReText != ''){
+        if(textSearch !== '' & ReText !== ''){
             setText(text.replaceAll(textSearch,ReText));
             let preview = document.getElementById('previewText');
             preview.innerHTML = preview.innerHTML.replaceAll(ReText,`<mark>`+ReText+`</mark>`);
@@ -102,7 +102,7 @@ export default function TextForm(props) {
                 <div className="container p-0 m=0 d-flex flex-row">
                     <button className="btn btn-primary me-1" onClick={handleUpClick}>Uppercase</button>
                     <button className="btn btn-primary mx-1" onClick={handleLoClick}>Lowercase</button>
-                    <button className="btn btn-primary mx-1" onClick={handleUndoClick}>Undo Clear</button>
+                    <button className="btn btn-primary mx-1" onClick={handleUndoClick}>Undo</button>
                     <button className="btn btn-primary mx-1" onClick={handleClearClick}>Clear Text</button>
                     {/* <button className="btn btn-primary mx-1" onClick={handleUpdateClick}>Update Cache</button> */}
                     <button className={copyBtn} onClick={copyToClipboard}>Copy to Clipboard</button>
