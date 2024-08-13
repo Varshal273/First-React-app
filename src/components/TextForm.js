@@ -26,10 +26,10 @@ export default function TextForm(props) {
         }
         // textCache = text;
     }
-    const handleUpdateClick = () => {
-        textCache = text;
-        setText(textCache);
-    }
+    // const handleUpdateClick = () => {
+    //     textCache = text;
+    //     setText(textCache);
+    // }
     const handleOnChange = (event) => {
         // console.log('On Change')
         setText(event.target.value);
@@ -91,6 +91,18 @@ export default function TextForm(props) {
         setText(newText.join(' '));
       }
 
+    const lightStyle = {
+            color : '#000000cc',
+            backgroundColor: '#fff',
+            transition: 'all .5s'
+        }
+    const darkStyle = {
+            color : '#ffffffdd',
+            backgroundColor: '#212529',
+            // backgroundColor: '#042743',
+            transition: 'all .5s'   
+    }
+
     const [text,setText] = useState('');
     const [textSearch,setTextSearch] = useState('');
     const [ReText,setReText] = useState('');
@@ -98,10 +110,10 @@ export default function TextForm(props) {
     // setText('hello');
     return (
         <>
-            <div className='container'>
+            <div className='container p-4 pb-0 rounded-top' style={props.mode==='dark'?darkStyle:lightStyle}>
                 <h1>{props.heading}</h1>
                 <div className="mb-3">
-                    <textarea className="form-control" id="myBox" rows="8" value={text} onChange={handleOnChange}></textarea>
+                    <textarea className="form-control" style={props.mode==='dark'?darkStyle:lightStyle} id="myBox" rows="8" value={text} onChange={handleOnChange}></textarea>
                 </div>
                 <div className="container p-0 m-0 d-flex flex-row flex-wrap">
                     <button className="btn btn-primary me-1 mb-3" onClick={handleUpClick}>Uppercase</button>
@@ -123,7 +135,7 @@ export default function TextForm(props) {
                     </div>
                 </div>
             </div>
-            <div className="container my-3">
+            <div className="container p-4 pt-0 rounded-bottom" style={props.mode==='dark'?darkStyle:lightStyle}>
                 <h2>Your Text Summary</h2>
                 <p>{text.length} characters and {text.trim().split(/\s+/).length} words and {text.trim().split('.').length - 1} Sentences <br/> {0.008 * text.trim().split(/\s+/).length} Minutes to read</p>
                 <div className="container d-flex p-2">
@@ -133,7 +145,7 @@ export default function TextForm(props) {
                     <button className="btn btn-outline-primary mx-0 m-1" onClick={hideText}>Hide Preview</button>
                     </div>
                 </div>
-                <div id='previewText' className='container border border-secondary rounded p-4'>{text}</div>
+                <div id='previewText' className='container border border-secondary rounded p-4'>{text.length>0?text:"Enter Something to Preview Here"}</div>
                 {/* <div className="container border p-4" id="htmlCode"></div> */}
             </div>
         </>
