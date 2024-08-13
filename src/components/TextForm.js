@@ -33,7 +33,7 @@ export default function TextForm(props) {
     const handleOnChange = (event) => {
         // console.log('On Change')
         setText(event.target.value);
-        setcopyBtn("btn btn-outline-secondary mx-1")
+        setcopyBtn("btn btn-outline-secondary mx-1 mb-3")
 
     }
     const htmlCode = () => {
@@ -71,15 +71,14 @@ export default function TextForm(props) {
     }
     const copyToClipboard = async () => {
         try {
-          const element = document.getElementById('myBox');
-          await navigator.clipboard.writeText(element.value);
-          setcopyBtn("btn btn-primary mx-1 px-3")
+          await navigator.clipboard.writeText(text);
+          setcopyBtn("btn btn-primary mx-1 mb-3 ps-5")
           setTimeout(() => {
-              setcopyBtn("btn btn-outline-primary mx-1 px-3")
+              setcopyBtn("btn btn-outline-primary mx-1 mb-3 ps-5")
               setTimeout(() => {
-                  setcopyBtn("btn btn-outline-primary mx-1")
-              }, 1500);
-          }, 2000);
+                  setcopyBtn("btn btn-outline-primary mb-3 mx-1")
+              }, 1000);
+          }, 1500);
           // Optional: Provide feedback or perform additional actions upon successful copy
         } catch (error) {
           console.error("Failed to copy to clipboard:", error);
@@ -87,10 +86,15 @@ export default function TextForm(props) {
         }
       };
 
+      const handleRemoveSpace = () => {
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(' '));
+      }
+
     const [text,setText] = useState('');
     const [textSearch,setTextSearch] = useState('');
     const [ReText,setReText] = useState('');
-    const [copyBtn, setcopyBtn] = useState("btn btn-outline-secondary mx-1");
+    const [copyBtn, setcopyBtn] = useState("btn btn-outline-secondary mx-1 mb-3");
     // setText('hello');
     return (
         <>
@@ -99,11 +103,12 @@ export default function TextForm(props) {
                 <div className="mb-3">
                     <textarea className="form-control" id="myBox" rows="8" value={text} onChange={handleOnChange}></textarea>
                 </div>
-                <div className="container p-0 m=0 d-flex flex-row">
-                    <button className="btn btn-primary me-1" onClick={handleUpClick}>Uppercase</button>
-                    <button className="btn btn-primary mx-1" onClick={handleLoClick}>Lowercase</button>
-                    <button className="btn btn-primary mx-1" onClick={handleUndoClick}>Undo</button>
-                    <button className="btn btn-primary mx-1" onClick={handleClearClick}>Clear Text</button>
+                <div className="container p-0 m-0 d-flex flex-row flex-wrap">
+                    <button className="btn btn-primary me-1 mb-3" onClick={handleUpClick}>Uppercase</button>
+                    <button className="btn btn-primary mx-1 mb-3" onClick={handleLoClick}>Lowercase</button>
+                    <button className="btn btn-primary mx-1 mb-3" onClick={handleUndoClick}>Undo</button>
+                    <button className="btn btn-primary mx-1 mb-3" onClick={handleClearClick}>Clear Text</button>
+                    <button className="btn btn-primary mx-1 mb-3" onClick={handleRemoveSpace}>Remove Extra Space's</button>
                     {/* <button className="btn btn-primary mx-1" onClick={handleUpdateClick}>Update Cache</button> */}
                     <button className={copyBtn} onClick={copyToClipboard}>Copy to Clipboard</button>
                     <div className="ms-auto d-flex w-50 float-end">
