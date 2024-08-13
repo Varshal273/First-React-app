@@ -6,15 +6,19 @@ export default function TextForm(props) {
         // console.log('button clicked')
         let newText = text.toUpperCase(); 
         setText(newText);
+        props.showAlert("Converted to Upper Case!", "success");
     }
     const handleLoClick = () => {
         // console.log('button clicked')
         let newText = text.toLowerCase(); 
         setText(newText);
+        props.showAlert("Converted to Lower Case!", "success");
     }
     const handleClearClick = () => {
         textCache = text;
         setText('');
+        props.showAlert("Cleared Text Box Press Undo if you want to Recover!", "success");
+
     }
     const handleUndoClick = () => {
         if(textCache === null | textCache === ''){
@@ -25,6 +29,8 @@ export default function TextForm(props) {
             setText(textCache);
         }
         // textCache = text;
+        props.showAlert("Retrived Text!", "success");
+
     }
     // const handleUpdateClick = () => {
     //     textCache = text;
@@ -38,13 +44,17 @@ export default function TextForm(props) {
     }
     const htmlCode = () => {
         document.getElementById('previewText').innerHTML = text;
+        props.showAlert("html <code> in Preview!", "success");
     }
     const hideText = () => {
         document.getElementById('previewText').classList.toggle('d-none');
+        props.showAlert("Preview is Hidden press 'hide preview again to show Preview'!", "success");
+
     }
     const handleOnChangeTextSearch = (event) => {
         setTextSearch(event.target.value);
         document.getElementById('previewText').innerHTML = text;
+        props.showAlert("Check Preview for marked result!", "success");
     }
     const handleOnTextSearch = () => {
         if(textSearch !== ''){
@@ -62,8 +72,7 @@ export default function TextForm(props) {
     const handleOnReText = () => {
         if(textSearch !== '' & ReText !== ''){
             setText(text.replaceAll(textSearch,ReText));
-            let preview = document.getElementById('previewText');
-            preview.innerHTML = preview.innerHTML.replaceAll(ReText,`<mark>`+ReText+`</mark>`);
+            props.showAlert("Text Replaced!", "success");
         }
         else{
             document.getElementById('previewText').innerHTML = text;
@@ -75,9 +84,10 @@ export default function TextForm(props) {
           setcopyBtn("btn btn-primary mx-1 mb-3 ps-5")
           setTimeout(() => {
               setcopyBtn("btn btn-outline-primary mx-1 mb-3 ps-5")
-              setTimeout(() => {
-                  setcopyBtn("btn btn-outline-primary mb-3 mx-1")
-              }, 1000);
+              props.showAlert("Copied to Clipboard!", "success");
+            setTimeout(() => {
+                setcopyBtn("btn btn-outline-primary mb-3 mx-1")
+            }, 1000);
           }, 1500);
           // Optional: Provide feedback or perform additional actions upon successful copy
         } catch (error) {
@@ -89,6 +99,7 @@ export default function TextForm(props) {
       const handleRemoveSpace = () => {
         let newText = text.split(/[ ]+/);
         setText(newText.join(' '));
+        props.showAlert("Extra's Space Removed!", "success");
       }
 
     const lightStyle = {
@@ -124,11 +135,11 @@ export default function TextForm(props) {
                     {/* <button className="btn btn-primary mx-1" onClick={handleUpdateClick}>Update Cache</button> */}
                     <button className={copyBtn} onClick={copyToClipboard}>Copy to Clipboard</button>
                     <div className="ms-auto d-flex w-50 float-end">
-                          <div class="input-group">
+                          <div className="input-group">
                             <input className="form-control border-secondary" type="search" value={textSearch} onChange={handleOnChangeTextSearch} placeholder="Find Text" aria-label="Search"/>
                             <button className="btn btn-secondary" onClick={handleOnTextSearch}>Find</button>
                         </div>
-                        <div class="input-group ms-2">
+                        <div className="input-group ms-2">
                             <input className="form-control border-secondary" type="search" value={ReText} onChange={handleOnChangeReText} placeholder="Replace Text" aria-label="Search"/>
                             <button className="btn btn-secondary" onClick={handleOnReText}>Replace</button>
                         </div>
@@ -140,7 +151,7 @@ export default function TextForm(props) {
                 <p>{text.length} characters and {text.trim().split(/\s+/).length} words and {text.trim().split('.').length - 1} Sentences <br/> {0.008 * text.trim().split(/\s+/).length} Minutes to read</p>
                 <div className="container d-flex p-2">
                     <h2>Preview</h2>
-                    <div class="input-group ms-2">
+                    <div className="input-group ms-2">
                     <button className="btn btn-outline-primary ms-4 mx-0 m-1" onClick={htmlCode}>&#x3C;HTML&#x3E;</button>
                     <button className="btn btn-outline-primary mx-0 m-1" onClick={hideText}>Hide Preview</button>
                     </div>
