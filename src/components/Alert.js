@@ -8,7 +8,6 @@ function Alert(props) {
   return (
     props.alert && <div className={`alert alert-${props.alert.type} alert-dismissible fade show m-3 p-2 px-3`} role="alert">
         <samp>{capitalize(props.alert.type)}</samp> : {props.alert.msg}
-        {/* <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> */}
     </div>
   )
 }
