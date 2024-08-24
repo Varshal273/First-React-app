@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-// import About from './components/About';
+import About from './components/About';
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
@@ -85,7 +85,10 @@ function App() {
           mode={mode}
           theme={theme}
         />
-        {/* <About/> */}
+        <About
+          mode={mode}
+          theme={theme}
+        />
       </div>
     </>
   );
