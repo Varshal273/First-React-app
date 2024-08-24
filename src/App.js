@@ -6,8 +6,12 @@ import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
 import { 
   createBrowserRouter,
-  RouterProvider
+  Route,
+  RouterProvider,
+  Routes
  } from "react-router-dom";
+import { BrowserRouter as Router } from 'react-router-dom';
+
 
 
 function App() {
@@ -71,27 +75,10 @@ function App() {
   }
 
   const [theme, setTheme] = useState(lightStyle)
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element:<TextForm
-        heading="Enter the Text to Analyze Below"
-        showAlert={showAlert}
-        mode={mode}
-        theme={theme}
-      /> ,
-    },
-    {
-      path: "/About",
-      element:<About
-        mode={mode}
-        theme={theme}
-      />,
-    },
-  ])
-
+  
   return (
     <>
+    <Router>
       <Navbar title="TextUtils" 
         mode={mode} 
         theme={theme}
@@ -100,7 +87,21 @@ function App() {
       />
       <Alert alert={alert}/>
       <div className="container-fluid my-3">
-        <RouterProvider router={router}/>
+        <Routes>
+          <Route exact path='/' element={
+          <TextForm
+            heading="Enter the Text to Analyze Below"
+            showAlert={showAlert}
+            mode={mode}
+            theme={theme}
+          />}></Route>
+          <Route exact path="/About" element={
+          <About
+            mode={mode}
+            theme={theme}
+          />}></Route>
+        </Routes>
+        {/* <RouterProvider router={router}/> */}
         {/* <TextForm
           heading="Enter the Text to Analyze Below"
           showAlert={showAlert}
@@ -112,6 +113,7 @@ function App() {
           theme={theme}
         /> */}
       </div>
+    </Router>
     </>
   );
 }
