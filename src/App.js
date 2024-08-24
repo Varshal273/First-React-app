@@ -4,6 +4,10 @@ import About from './components/About';
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
+import { 
+  createBrowserRouter,
+  RouterProvider
+ } from "react-router-dom";
 
 
 function App() {
@@ -66,8 +70,25 @@ function App() {
       transition: 'all .5s'   
   }
 
-
   const [theme, setTheme] = useState(lightStyle)
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element:<TextForm
+        heading="Enter the Text to Analyze Below"
+        showAlert={showAlert}
+        mode={mode}
+        theme={theme}
+      /> ,
+    },
+    {
+      path: "/About",
+      element:<About
+        mode={mode}
+        theme={theme}
+      />,
+    },
+  ])
 
   return (
     <>
@@ -79,7 +100,8 @@ function App() {
       />
       <Alert alert={alert}/>
       <div className="container-fluid my-3">
-        <TextForm
+        <RouterProvider router={router}/>
+        {/* <TextForm
           heading="Enter the Text to Analyze Below"
           showAlert={showAlert}
           mode={mode}
@@ -88,7 +110,7 @@ function App() {
         <About
           mode={mode}
           theme={theme}
-        />
+        /> */}
       </div>
     </>
   );

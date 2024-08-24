@@ -1,7 +1,7 @@
 export default function About(props) {
 
   return (
-    <div className='py-3 my-3 rounded container' style={props.theme}>
+    <div className='py-3 pb-4 my-3 rounded container' style={props.theme}>
         <div className="container">
             <h1 className='my-3'>About Us</h1>
             <div className="accordion" data-bs-theme={props.mode} id="accordionExample">
