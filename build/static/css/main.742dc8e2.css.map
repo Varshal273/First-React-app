@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.742dc8e2.css","mappings":"AAGA,UAFI,kBAKJ,CAHA,KAEI,0BACJ","sources":["index.css"],"sourcesContent":[".btn{\r\n    transition: all .5s;\r\n}\r\nbody{\r\n    transition: all .5s;\r\n    background-color: #eeeeeedd;\r\n}"],"names":[],"sourceRoot":""}
