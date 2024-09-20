@@ -5,9 +5,7 @@ import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
 import { 
-  createBrowserRouter,
   Route,
-  RouterProvider,
   Routes
  } from "react-router-dom";
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -56,6 +54,18 @@ function App() {
     setMode("dark")
     showAlert("Blue Theme has been Enabled", "success");
   }
+  const yellowTheme = () =>{
+    setTheme(yellowStyle)
+    document.body.style.backgroundColor = 'rgb(240 234 172 / 62%)'
+    setMode("light")
+    showAlert("Yellow Theme has been Enabled", "success");
+  }
+  const tealTheme = () =>{
+    setTheme(tealStyle)
+    document.body.style.backgroundColor = 'rgb(170 217 187 / 62%)'
+    setMode("light")
+    showAlert("Teal Theme has been Enabled", "success");
+  }
   const lightStyle = {
       color : '#000000cc',
       backgroundColor: '#ffffff',
@@ -73,6 +83,20 @@ function App() {
       // backgroundColor: '#212529',
       transition: 'all .5s'   
   }
+  const yellowStyle = {
+      color : '#000000cc',
+      backgroundColor: '#F0EAAC',
+      // backgroundColor: '#212529',
+      transition: 'all .5s',
+      borderColor:'#000',
+  }
+  const tealStyle = {
+      color : '#000000cc',
+      backgroundColor: '#AAD9BB',
+      // backgroundColor: '#212529',
+      transition: 'all .5s',
+      borderColor:'#000',
+  }
 
   const [theme, setTheme] = useState(lightStyle)
   
@@ -83,6 +107,8 @@ function App() {
         mode={mode} 
         theme={theme}
         bluetheme={blueTheme}
+        yellowtheme={yellowTheme}
+        tealtheme={tealTheme}
         toggleMode={toggleMode}
       />
       <Alert alert={alert}/>
@@ -90,7 +116,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={
           <TextForm
-            heading="Enter the Text to Analyze Below"
+            heading="TextUtils - Word Counter, Character Counter, Remove extra spaces"
             showAlert={showAlert}
             mode={mode}
             theme={theme}

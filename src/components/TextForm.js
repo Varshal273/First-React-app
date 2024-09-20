@@ -39,7 +39,7 @@ export default function TextForm(props) {
     const handleOnChange = (event) => {
         // console.log('On Change')
         setText(event.target.value);
-        setcopyBtn("btn btn-outline-secondary mx-1 mb-3")
+        setcopyBtn("btn-outline-secondary")
 
     }
     const htmlCode = () => {
@@ -81,12 +81,12 @@ export default function TextForm(props) {
     const copyToClipboard = async () => {
         try {
           await navigator.clipboard.writeText(text);
-          setcopyBtn("btn btn-primary me-2 mb-2 ps-5")
+          setcopyBtn("btn-primary ps-5")
           setTimeout(() => {
-              setcopyBtn("btn btn-outline-primary me-2 mb-2 ps-5")
+              setcopyBtn("btn-outline-primary ps-5")
               props.showAlert("Copied to Clipboard!", "success");
             setTimeout(() => {
-                setcopyBtn("btn btn-outline-primary mb-2 me-2")
+                setcopyBtn("btn-outline-primary")
             }, 1000);
           }, 1500);
           // Optional: Provide feedback or perform additional actions upon successful copy
@@ -117,40 +117,44 @@ export default function TextForm(props) {
     const [text,setText] = useState('');
     const [textSearch,setTextSearch] = useState('');
     const [ReText,setReText] = useState('');
-    const [copyBtn, setcopyBtn] = useState("btn btn-outline-secondary me-2 mb-2");
+    const [copyBtn, setcopyBtn] = useState("btn-outline-secondary");
     // setText('hello');
     return (
         <>
             <div className='container p-4 pb-0 rounded-top' style={props.theme}>
-                <h1>{props.heading}</h1>
+                <h1 className='mb-4'>{props.heading}</h1>
                 <div className="mb-3">
                     <textarea className="form-control" style={props.theme} id="myBox" rows="8" value={text} onChange={handleOnChange}></textarea>
                 </div>
-                <div className="container p-0 m-0 d-flex flex-row justify-content-between">
-                    <div className="container w-100 p-0 d-flex flex-wrap align-items-start justify-content-start">
-                        <button className="btn btn-primary me-2 mb-2" onClick={handleUpClick}>Uppercase</button>
-                        <button className="btn btn-primary me-2 mb-2" onClick={handleLoClick}>Lowercase</button>
-                        <button className="btn btn-primary me-2 mb-2" onClick={handleUndoClick}>Undo</button>
-                        <button className="btn btn-primary me-2 mb-2" onClick={handleClearClick}>Clear Text</button>
-                        <button className="btn btn-primary me-2 mb-2" onClick={handleRemoveSpace}>Remove Extra Space's</button>
+                <div className="container p-0 m-0 d-flex flex-row justify-content-between flex-wrap">
+                    <div className="container-fliud p-0 d-flex flex-wrap align-items-start justify-content-start">
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mb-2" onClick={handleUpClick}>Uppercase</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mb-2" onClick={handleLoClick}>Lowercase</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mb-2" onClick={handleUndoClick}>Undo</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mb-2" onClick={handleClearClick}>Clear Text</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mb-2" onClick={handleRemoveSpace}>Remove Extra Space's</button>
                         {/* <button className="btn btn-primary mx-1" onClick={handleUpdateClick}>Update Cache</button> */}
-                        <button className={copyBtn} onClick={copyToClipboard}>Copy to Clipboard</button>
+                        <button disabled={text.length===0} className={`btn ${copyBtn} me-2 mb-2`} onClick={copyToClipboard}>Copy to Clipboard</button>
                     </div>
-                    <div className="d-flex flex-column w-25 float-end">
+                    <div className="d-flex flex-column float-end w-25" style={{minWidth:'300px'}}>
                           <div className="input-group">
-                            <input className="form-control border-secondary" type="search" value={textSearch} onChange={handleOnChangeTextSearch} placeholder="Find Text" aria-label="Search"/>
-                            <button className="btn btn-secondary" onClick={handleOnTextSearch}>Find</button>
+                            <input disabled={text.length===0}  className="form-control border-secondary" type="search" value={textSearch} onChange={handleOnChangeTextSearch} placeholder="Find Text" aria-label="Search"/>
+                            <button disabled={text.length===0}  className="btn btn-secondary" style={{width:'90px',}} onClick={handleOnTextSearch}>Find</button>
                         </div>
                         <div className="input-group my-2">
-                            <input className="form-control border-secondary" type="search" value={ReText} onChange={handleOnChangeReText} placeholder="Replace Text" aria-label="Search"/>
-                            <button className="btn btn-secondary" onClick={handleOnReText}>Replace</button>
+                            <input disabled={text.length===0}  className="form-control border-secondary" type="search" value={ReText} onChange={handleOnChangeReText} placeholder="Replace Text" aria-label="Search"/>
+                            <button disabled={text.length===0}  className="btn btn-secondary" style={{width:'90px',}} onClick={handleOnReText}>Replace</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="container p-4 pt-0 rounded-bottom" style={props.theme}>
                 <h2>Your Text Summary</h2>
-                <p>{text.length} characters and {text===''?'0':text.trim().split(/\s+/).length} words and {text.trim().split('.').length - 1} Sentences <br/> {0.008 * text.trim().split(/\s+/).length} Minutes to read</p>
+                {/* <p>{text.length} characters and {text===''?'0':text.trim().split(/\s+/).length} words and {text.trim().split('.').length - 1} Sentences <br/> {0.008 * text.trim().split(/\s+/).length} Minutes to read</p> */}
+                <p>     {text.length} characters 
+                    and {text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words 
+                    and {text.trim().split('.').length - 1} Sentences <br/> 
+                        {0.008 * text.trim().split(/\s+/).filter((element)=>{return element.length!==0}).length} Minutes to read</p>
                 <div className="container d-flex p-2">
                     <h2>Preview</h2>
                     <div className="input-group ms-2">
@@ -158,7 +162,7 @@ export default function TextForm(props) {
                     <button className="btn btn-outline-primary mx-0 m-1" onClick={hideText}>Hide Preview</button>
                     </div>
                 </div>
-                <div id='previewText' className='container border border-secondary rounded p-4'>{text.length>0?text:"Enter Something to Preview Here"}</div>
+                <div id='previewText' className='container border border-secondary rounded p-4'>{text.length>0?text:"Nothing to Preview !"}</div>
                 {/* <div className="container border p-4" id="htmlCode"></div> */}
             </div>
         </>
